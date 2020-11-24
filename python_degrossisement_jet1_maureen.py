@@ -195,4 +195,82 @@ def display_stats(liste,temps,cat):
         tracer(variancecal,cat,temps[0],temps[i])
         tracer(ecart_typecal,cat,temps[0],temps[i])
         tracer(medianecal,cat,temps[0],temps[i])
-        
+ 
+import statistics as st 
+
+def Moyenne(l): #retour une liste des moyennes successives 
+    m=[]
+    n=len(l)
+    for i in range(n):
+        m.append(st.mean(l[0:i+1]))
+    return m 
+       
+
+
+def moy_prog(l): 
+    m=[]
+    n=len(l)
+    for i in range(n):
+        m.append(moyenne_arithmetique(l[0:i+1]))
+    return m 
+
+#pas pertinent pour le min et le max        
+    
+def variance_prog(l): 
+    v=[]
+    n=len(l)
+    for i in range(n):
+        v.append(variance(l[0:i+1]))
+    return v 
+
+def ecart_type_prog(l): 
+    e=[]
+    n=len(l)
+    for i in range(n):
+        e.append(ecart_type(l[0:i+1]))
+    return e 
+
+
+def formule_humidex(temp,hum):
+    a,b= 17.27,237.7
+    alpha= (a*temp)/(b+temp)+ln(hum)
+    TR=(b*alpha)/(a-alpha)
+    return temp+0,5555*(6,11*np.exp(5417,7530*((1/273,16)-(1/273,15+TR)-10)))
+
+
+def indice_humidex(ltemp,lhum,ltime,tinf,tsup):
+    i,j= interv(ltime,tinf,tsup)[0],interv(ltime,tinf,tsup)[1]
+    Temp=np.array(ltemp[i:j])
+    Hum=np.array(lhum[i:j])
+    Time=np.array(ltime[i:j])
+    n = len(Temp)
+    ind=[]
+    for  in range(n):
+        ind.append(formule_humidex(Temp[i],Hum[i])
+    Ind= np.array(ind)
+    plt.plot(Time,Ind,linestyle='None',color=(0,0,0))
+    return Ind
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
