@@ -1,0 +1,37 @@
+Liste des paramètres à saisir dans l'invite de commande :
+(*paramètre signifie que le paramètre est optionnel ; si un paramètre optionnel est entré, tous doivent l'être)
+******************************************************************************************************************************************
+action : display, displayStat, corrélation, corrélation_capteur, similarité, horaires
+
+dimension : température, bruit, co2, luminosité, humidité, humidex, humidex_capteur 
+
+*tinf,*tsup : dates entrées au format string
+******************************************************************************************************************************************
+- display Dimension *tinf *tsup
+=> Affiche l'ensemble des courbes correspondant à la dimension voulue pour chauqe capteur ainsi que la courbe reprenant toutes les données
+Ex : display température 2019-08-11 2019-08-25  : dessine les données relevées entre le 11/08/2019 à minuit et le 25/08/2019 à minuit
+
+- display humidex *tinf *tsup
+=> Calcule et dessine l'évolution de l'indice humidex, tous capteur confondus, en fonction du temps
+
+- display humidex_capteur capteur *tinf *tsup 
+=> Calcule et dessine l'évolution de l'indice humidex pour un capteur en fonction du temps
+Ex : display humidex_capteur 1 : Calcule et dessine l'évolution de l'indice humidex pour un capteur en fonction du temps sans bornes temporelles
+
+- displayStat dimension *tinf *tsup
+=> Affiche l'ensemble des courbes et de leurs paramètres statistiques correspondant à la dimension voulue pour chauqe capteur ainsi que la
+
+- corrélation Dimension1 Dimension2 *tinf *tsup
+=> Calcule le coefficient de corrélation reliant ces deux dimensions, tous capteurs confondus; et trace les courbes de ces deux dimensions en affichant en légende ce coefficient
+
+- corrélation_capteur Dimension1 Dimension2 capteur *tinf *tsup
+=> Calcule le coefficient de corrélation reliant ces deux dimensions pour le capteur; et trace les courbes de ces deux dimensions en affichant en légende ce coefficient
+
+- similarité primaire dimension capteur1 capteur2 marge *tinf1 *tsup1 *tinf2 *tsup2
+=> Renvoie le résultat de l'étude de de similarité selon la méthode dite "primaire" avec une marge variable pour les capteurs1 et 2 mesurant la dimension
+
+- similarité dtw dimension capteur1 capteur2 marge *tinf1 *tsup1 *tinf2 *tsup2
+=> Renvoie le résultat de l'étude de de similarité selon la méthode dite "DTW" avec une fenêtre variable pour les capteurs 1 et 2 mesurant la dimension
+
+- horaires
+=> Renvoie, sous forme d'une échelle des temps, une estimation des temps d'occupation du bâtiment
