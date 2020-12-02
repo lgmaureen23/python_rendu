@@ -112,7 +112,7 @@ def tracer_stat(lparam,data,cat,sen,*btemp):
 #Fonctions statistiques
 #######################################################################
 def minimum(l):
-    if l == []:
+    if len(l) == 0:
          print("La liste est vide")
     else:
         m = l[0]
@@ -123,7 +123,7 @@ def minimum(l):
         return m
 
 def maximum(l):
-    if l == []:
+    if len(l) == 0:
          print("La liste est vide")
     else:
         M = l[0]
@@ -312,10 +312,9 @@ def dtwdistance(data,cat,sen1,sen2,fen,*btemp):
 
 def dtwshow(data,cat,sen1,sen2,fen,*btemp):
     s1,s2=select3(data,cat,sen1,sen2,*btemp)
-    btempbis=btemp[2:4]
-    time1,time2=select(data,"sent_at",sen1,*btemp),select(data,"sent_at",sen2,btempbis)
-    pl.plot(time1,x,marker="+",linestyle='-',color='red',label="capteur n°"+str(sen1))
-    pl.plot(time2,y,marker="+",linestyle='-',color='blue',label="capteur n°"+str(sen2))
+    time1,time2=select(data,"sent_at",sen1,btemp[0],btemp[1]),select(data,"sent_at",sen2,btemp[2],btemp[3])
+    pl.plot(time1,np.array(s1),marker="+",linestyle='-',color='red',label="capteur n°"+str(sen1))
+    pl.plot(time2,np.array(s2),marker="+",linestyle='-',color='blue',label="capteur n°"+str(sen2))
     plot_warping(s1,s2,time1,time2,fen)
     pl.ylabel(mf(cat))
     pl.title("DTW pour les capteurs "+str(sen1)+" et "+str(sen2)+" mesurant la dimension "+mf(cat))
@@ -442,8 +441,8 @@ def select3(data,cat,sen1,sen2,*btemp):
     plage1=extract(data,"sent_at",sen1)
     plage2=extract(data,"sent_at",sen2)
     if btemp == ((),(),(),()) or btemp ==() :
-        [i,j]=[0,len(plage)]
-        [e,f]=[0,len(plage)]
+        [i,j]=[0,len(plage1)]
+        [e,f]=[0,len(plage2)]
     else :
         tinf1 = pnd.Timestamp(btemp[0],tz=7200)
         tsup1 = pnd.Timestamp(btemp[1],tz=7200)
@@ -548,7 +547,7 @@ if len(argums)>1:
             else:
                 start_date1,end_date1,start_date2,end_date2=(),(),(),()
         elif méthode == "dtw":
-            fen = float(argums[6])
+            fen = int(argums[6])
             if len(argums)>7:
                 start_date1 = argums[7]
                 end_date1 = argums[8]
